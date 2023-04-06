@@ -1,11 +1,13 @@
-import { Button, FormControl, FormLabel, Input, VStack } from '@chakra-ui/react'
+import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import {BiHide,BiShow } from 'react-icons/bi'
 import './Auth.css';
 
 const Login = () => {
     const [loading,setLoading] = useState(false);
     const [email,setEmail] = useState();
     const [password,setPassword] = useState();
+    const [show,setShow] = useState();
 
     const submitHandler = ()=>{
 
@@ -18,7 +20,14 @@ const Login = () => {
 </FormControl>
 <FormControl>
   <FormLabel>Password</FormLabel>
-  <Input type='Password' onChange={(e)=>setPassword (e.target.value)} />
+  <InputGroup>
+  <Input type={show?"text":"password"} onChange={(e)=>setPassword (e.target.value)} />
+  <InputRightElement>
+  <Button size={'sm'} h={'70%'} onClick={()=>setShow(!show)}>
+    {show?<BiHide/>:<BiShow/>}
+  </Button>
+  </InputRightElement>
+  </InputGroup>
 </FormControl>
 <Button className='submitButton' style={{marginTop:"30px"}} isLoading={loading} onClick={submitHandler} colorScheme='green' w={'100% '} >Login</Button>
 
