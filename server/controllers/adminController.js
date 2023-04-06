@@ -53,7 +53,7 @@ try {
     const token = jwt.sign({ adminId: admin._id }, process.env.JWT_SECRET, {
         expiresIn: "1h",
       });
-      console.log(token) //
+      console.log(token) 
       res.status(201).json({
         _id: admin._id,
         name: admin.name,
