@@ -6,3 +6,5 @@ router.post('/machines',createMachines)
 router.get('/machines',getMachines)
 router.get('/machines:id',checkMachine,getMachineById)
 router.patch('/machines:id',checkMachine,updateMachineById)
+router.patch('/machine:id',checkMachine,)
+

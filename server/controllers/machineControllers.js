@@ -1,21 +1,5 @@
 const Machine = require('../models/machineModel')
 
-
-async function checkMachine(req, res, next) {
-    let machine;
-    try {
-      machine = await Machine.findById(req.params.id);
-      if (machine == null || machine.isDeleted) {
-        return res.status(404).json({ message: 'Machine not found' });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: err.message });
-    }
-  
-    res.machine = machine;
-    next();
-  }
-
 const createMachines = async (req,res)=>{
     try {
         const machine = await Machine.create(req.body);
@@ -47,4 +31,13 @@ const updateMachineById = async (req, res) => {
     }
   };
 
-module.exports = {createMachines,getMachines,getMachineById,updateMachineById,checkMachine}
+  const softDeleteById = async (req, res) => {
+    try {
+      await res.machine.updateOne({ isDeleted: true });
+      res.json({ message: 'Machine deleted successfully' });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+
+module.exports = {createMachines,getMachines,getMachineById,updateMachineById,softDeleteById}
